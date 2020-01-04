@@ -1,18 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/scrollView1"
+        android:layout_centerHorizontal="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/tableTiles"
+                android:layout_marginTop="40dp">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:layout_column="0"
+                        android:id="@+id/TempHome"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/TempHome"
+                        android:layout_width="105dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:text="@string/TempStreet"
+                        android:layout_column="1"
+                        android:id="@+id/TempStreet"
+                        android:background="@drawable/tile_separator"
+                        android:layout_marginRight="15dp"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:text="@string/TempPogrebok"
+                        android:layout_column="2"
+                        android:id="@+id/TempPogrebok"
+                        android:background="@drawable/tile_separator"
+                        android:layout_marginRight="0dp"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:layout_column="0"
+                        android:id="@+id/TempMax"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_width="105dp"
+                        android:text="Max, t"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="Min, t"
+                        android:layout_column="1"
+                        android:id="@+id/TempMin"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="@string/Pressure"
+                        android:layout_column="2"
+                        android:id="@+id/Pressure"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:layout_column="0"
+                        android:id="@+id/RashodEE"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="105dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/EnergyConsumption"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="@string/AmountHours"
+                        android:layout_column="1"
+                        android:id="@+id/TimeWarm"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="15dp"
+                        android:elegantTextHeight="true"
+                        android:includeFontPadding="false"
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="@string/PriceEnergy"
+                        android:layout_column="2"
+                        android:id="@+id/PriceEE"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:layout_column="0"
+                        android:id="@+id/countTurnOn"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_width="105dp"
+                        android:text="@string/Report"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="@string/Refresh"
+                        android:layout_column="1"
+                        android:id="@+id/Refresh"
+                        android:background="@drawable/tile_separator_gradient"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"/>
+                    <Button
+                        android:text="@string/Forecast"
+                        android:layout_column="2"
+                        android:id="@+id/buttWeather"
+                        android:background="@drawable/tile_separator"
+                        android:layout_height="105dp"
+                        android:layout_width="105dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginBottom="25dp"
+                        android:textColor="#ffffff"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:id="@+id/butsOnOff"
+                        android:layout_column="1"
+                        android:background="@drawable/power_on"
+                        android:layout_width="105dp"
+                        android:layout_height="100dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="20dp"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scrollView1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ff"
+            android:layout_column="1"
+            android:id="@+id/dateUpdate"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+</RelativeLayout>

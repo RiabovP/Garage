@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Garage</string>
+    <string name ="AppId">Bms2Me7c</string>
+    <string name ="Report">\nОтчет\n</string>
+    <string name ="TempHome">Квартира, t</string>
+    <string name ="TempStreet">Улица, t</string>
+    <string name ="TempPogrebok">Погребок</string>
+    <string name ="Pressure">Давление</string>
+    <string name ="EnergyConsumption">Расход э/э</string>
+    <string name ="AmountHours">Кол-во часов</string>
+    <string name ="PriceEnergy">Стоимость э/э</string>
+    <string name ="Refresh">\nОбновить\n</string>
+    <string name ="Forecast">Прогноз</string>
+    <string name ="gradus">d</string>
 </resources>
