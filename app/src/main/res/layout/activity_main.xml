@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pogrebok_blur_scr"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -47,42 +48,44 @@
                         android:layout_marginBottom="25dp"
                         android:textColor="#ffffff"
                         android:layout_weight="1"/>
+
                     <Button
-                        android:text="@string/TempPogrebok"
-                        android:layout_column="2"
                         android:id="@+id/TempPogrebok"
-                        android:background="@drawable/tile_separator"
-                        android:layout_marginRight="0dp"
-                        android:layout_height="105dp"
                         android:layout_width="105dp"
+                        android:layout_height="105dp"
+                        android:layout_column="2"
+                        android:layout_marginRight="0dp"
                         android:layout_marginBottom="25dp"
-                        android:textColor="#ffffff"
-                        android:layout_weight="1"/>
+                        android:background="@drawable/tile_separator"
+                        android:text="@string/TempPogrebok"
+                        android:textColor="#ffffff" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <Button
-                        android:layout_column="0"
                         android:id="@+id/TempMax"
-                        android:background="@drawable/tile_separator"
+                        android:layout_width="105dp"
                         android:layout_height="105dp"
+                        android:layout_column="0"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="25dp"
-                        android:layout_width="105dp"
-                        android:text="Max, t"
-                        android:textColor="#ffffff"/>
+                        android:background="@drawable/tile_separator"
+                        android:text="@string/TempMax"
+                        android:textColor="#ffffff" />
+
                     <Button
-                        android:text="Min, t"
-                        android:layout_column="1"
                         android:id="@+id/TempMin"
-                        android:background="@drawable/tile_separator"
-                        android:layout_height="105dp"
                         android:layout_width="105dp"
+                        android:layout_height="105dp"
+                        android:layout_column="1"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="25dp"
-                        android:textColor="#ffffff"/>
+                        android:background="@drawable/tile_separator"
+                        android:text="@string/TempMin"
+                        android:textColor="#ffffff" />
                     <Button
                         android:text="@string/Pressure"
                         android:layout_column="2"
@@ -108,19 +111,21 @@
                         android:layout_marginBottom="25dp"
                         android:text="@string/EnergyConsumption"
                         android:textColor="#ffffff"/>
+
                     <Button
-                        android:text="@string/AmountHours"
-                        android:layout_column="1"
                         android:id="@+id/TimeWarm"
-                        android:background="@drawable/tile_separator"
-                        android:layout_height="105dp"
                         android:layout_width="105dp"
+                        android:layout_height="105dp"
+                        android:layout_column="1"
                         android:layout_marginRight="15dp"
-                        android:elegantTextHeight="true"
-                        android:includeFontPadding="false"
                         android:layout_marginBottom="25dp"
+                        android:background="@drawable/tile_separator"
+                        android:elegantTextHeight="true"
                         android:gravity="center"
-                        android:textColor="#ffffff"/>
+                        android:includeFontPadding="false"
+                        android:text="@string/AmountHours"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff" />
                     <Button
                         android:text="@string/PriceEnergy"
                         android:layout_column="2"
@@ -171,14 +176,15 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <Button
                         android:id="@+id/butsOnOff"
-                        android:layout_column="1"
-                        android:background="@drawable/power_on"
                         android:layout_width="105dp"
                         android:layout_height="100dp"
+                        android:layout_column="1"
                         android:layout_marginRight="15dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/power_off" />
                 </TableRow>
             </TableLayout>
         </LinearLayout>
@@ -189,15 +195,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/scrollView1">
+
         <TextView
+            android:id="@+id/dateUpdate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="ff"
             android:layout_column="1"
-            android:id="@+id/dateUpdate"
+            android:gravity="center_horizontal"
+            android:text="ff"
             android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:layout_marginTop="50dp"
-            android:gravity="center_horizontal"/>
+            android:textColor="#ffffff" />
     </LinearLayout>
 </RelativeLayout>
