@@ -1,17 +1,22 @@
 package com.ryabov.garage;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ryabov.garage.Pogreb.DataService;
 import com.ryabov.garage.Pogreb.PogrebokV1;
+import com.ryabov.garage.Weather.RequestManager;
+import com.ryabov.garage.Weather.WeatherRequest;
+import com.ryabov.garage.Weather.WeatherV1;
 
 import org.json.JSONException;
 
@@ -68,7 +73,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Refresh.setOnClickListener(this);
         TempMax.setOnClickListener(this);
         TempMin.setOnClickListener(this);
+        ForecastTemp.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        WeatherV1 data=new WeatherV1();
+        RequestManager requestManager=RequestManager.getInstance(this);
+        WeatherRequest request=new WeatherRequest(Request.Method.GET, null, null, new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+                WeatherV1 data = (WeatherV1)response;
+                ForecastTemp.setText(getResources().getString(R.string.Forecast)+ "\n\n" + data.Temperature);
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Add error handling here
+            }
+        }, data);
+        requestManager.addToRequestQueue(request);
     }
 
     @Override
@@ -83,6 +111,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.TempMin:
                 new progress_Task().execute("http://37.193.0.199:1010/Tmax_Tmin.php?Tmax_Tmin", "Min");
+                break;
+            case R.id.buttWeather:
+                WeatherV1 data=new WeatherV1();
+                RequestManager requestManager=RequestManager.getInstance(this);
+                WeatherRequest request=new WeatherRequest(Request.Method.GET, null, null, new Response.Listener() {
+                    @Override
+                    public void onResponse(Object response) {
+                        WeatherV1 data = (WeatherV1)response;
+                        ForecastTemp.setText(getResources().getString(R.string.Forecast)+ "\n\n" + data.Temperature);
+                    }
+                },new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Add error handling here
+                    }
+                }, data);
+                requestManager.addToRequestQueue(request);
+
                 break;
         }
     }
