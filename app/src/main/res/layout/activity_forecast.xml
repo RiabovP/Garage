@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_weather_blur"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="Прогноз погоды в Новосибирске"
+        android:textSize="17sp"/>
+
+    <TableLayout
+        android:id="@+id/tableWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/tile_separator">
+
+        <TableRow android:id="@+id/tableRow1">
+
+            <TextView
+                android:id="@+id/titleWeatherTemp"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Температура"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherTemp"
+                android:layout_column="1"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam1"
+                android:layout_column="2"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/gradus"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow2">
+
+            <TextView
+                android:id="@+id/titleWeatherWind"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Скорость ветра"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherWind"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam2"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text="км/ч"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow3">
+
+            <TextView
+                android:id="@+id/titleWeatherHumidity"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Влажность"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherHumidity"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam3"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text="%"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow4">
+
+            <TextView
+                android:id="@+id/titleWeatherVisible"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Видимость"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherVisible"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text="Text"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam4"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text="км"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow5">
+
+            <TextView
+                android:id="@+id/titleWeatherPressure"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Давление"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherPressure"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam5"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text="мм.рт.ст"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow6">
+
+            <TextView
+                android:id="@+id/titleWeatherSunrise"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Рассвет"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherSunrise"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam6"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRow7">
+
+            <TextView
+                android:id="@+id/titleWeatherSunset"
+                android:layout_column="0"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="7dp"
+                android:text="Закат"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/cityWeatherSunset"
+                android:layout_column="1"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/textParam7"
+                android:layout_column="2"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:id="@+id/tableLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginBottom="10dp">
+
+                <TableRow android:id="@+id/tableRow8">
+
+                    <TextView
+                        android:id="@+id/Date_0"
+                        android:layout_column="0"
+                        android:layout_marginLeft="10dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_1"
+                        android:layout_column="1"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_2"
+                        android:layout_column="2"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_3"
+                        android:layout_column="3"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_4"
+                        android:layout_column="4"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_5"
+                        android:layout_column="5"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_6"
+                        android:layout_column="6"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_7"
+                        android:layout_column="7"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_8"
+                        android:layout_column="8"
+                        android:layout_marginLeft="20dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Date_9"
+                        android:layout_column="9"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="25dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow9"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/Day_0"
+                        android:layout_column="0"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_1"
+                        android:layout_column="1"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_2"
+                        android:layout_column="2"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_3"
+                        android:layout_column="3"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_4"
+                        android:layout_column="4"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_5"
+                        android:layout_column="5"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_6"
+                        android:layout_column="6"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_7"
+                        android:layout_column="7"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_8"
+                        android:layout_column="8"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/Day_9"
+                        android:layout_column="9"
+                        android:layout_marginLeft="40dp"
+                        android:text="Text"
+                        android:textColor="#494949"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow10"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/tempHigh_0"
+                        android:layout_column="0"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_1"
+                        android:layout_column="1"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_2"
+                        android:layout_column="2"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_3"
+                        android:layout_column="3"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_4"
+                        android:layout_column="4"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_5"
+                        android:layout_column="5"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_6"
+                        android:layout_column="6"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_7"
+                        android:layout_column="7"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_8"
+                        android:layout_column="8"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempHigh_9"
+                        android:layout_column="9"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow11"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/tempLow_0"
+                        android:layout_column="0"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_1"
+                        android:layout_column="1"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_2"
+                        android:layout_column="2"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_3"
+                        android:layout_column="3"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_4"
+                        android:layout_column="4"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_5"
+                        android:layout_column="5"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_6"
+                        android:layout_column="6"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_7"
+                        android:layout_column="7"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_8"
+                        android:layout_column="8"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949" />
+
+                    <TextView
+                        android:id="@+id/tempLow_9"
+                        android:layout_column="9"
+                        android:layout_marginLeft="40dp"
+                        android:text="@string/gradus"
+                        android:textColor="#494949"/>
+                </TableRow>
+
+            </TableLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+</LinearLayout>

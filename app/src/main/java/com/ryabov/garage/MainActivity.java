@@ -1,5 +1,6 @@
 package com.ryabov.garage;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +15,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ryabov.garage.Pogreb.DataService;
 import com.ryabov.garage.Pogreb.PogrebokV1;
+import com.ryabov.garage.Weather.ForecastDays;
 import com.ryabov.garage.Weather.RequestManager;
 import com.ryabov.garage.Weather.WeatherRequest;
-import com.ryabov.garage.Weather.WeatherV1;
 
 import org.json.JSONException;
 
@@ -82,20 +83,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onStart();
 
-        WeatherV1 data=new WeatherV1();
+        //WeatherV1 data=new WeatherV1();
         RequestManager requestManager=RequestManager.getInstance(this);
         WeatherRequest request=new WeatherRequest(Request.Method.GET, null, null, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
-                WeatherV1 data = (WeatherV1)response;
-                ForecastTemp.setText(getResources().getString(R.string.Forecast)+ "\n\n" + data.Temperature);
+                ForecastDays data = (ForecastDays) response;
+                ForecastTemp.setText(getResources().getString(R.string.Forecast)+ "\n\n" + data.Temperature + " " + getResources().getString(R.string.gradus));
             }
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // Add error handling here
             }
-        }, data);
+        });
         requestManager.addToRequestQueue(request);
     }
 
@@ -113,12 +114,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new progress_Task().execute("http://37.193.0.199:1010/Tmax_Tmin.php?Tmax_Tmin", "Min");
                 break;
             case R.id.buttWeather:
-                WeatherV1 data=new WeatherV1();
-                RequestManager requestManager=RequestManager.getInstance(this);
+               // WeatherV1 data=new WeatherV1();
+               /* RequestManager requestManager=RequestManager.getInstance(this);
                 WeatherRequest request=new WeatherRequest(Request.Method.GET, null, null, new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
-                        WeatherV1 data = (WeatherV1)response;
+                        ForecastDays data = (ForecastDays) response;
                         ForecastTemp.setText(getResources().getString(R.string.Forecast)+ "\n\n" + data.Temperature);
                     }
                 },new Response.ErrorListener() {
@@ -126,9 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onErrorResponse(VolleyError error) {
                         // Add error handling here
                     }
-                }, data);
-                requestManager.addToRequestQueue(request);
-
+                });
+                requestManager.addToRequestQueue(request);*/
+                Intent intent = new Intent(this, ForecastActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.trans, R.anim.alpha);
                 break;
         }
     }
@@ -161,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         builder.show();
                     }
                 });
-
             }
             return jsonString;
         }
@@ -173,8 +175,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 if (test == "New") {
                     pogreb = DataService.GetPorgrebokData(jsonString);
-                    ConsumptionEnergy.setText(ConsumptionEnergy.getText() + "\n\n" + pogreb.kwt_full + " руб");
-                    CostEnergy.setText(CostEnergy.getText() + "\n\n" + pogreb.price_kWt + " кВт");
+                    ConsumptionEnergy.setText(ConsumptionEnergy.getText() + "\n\n" + pogreb.kwt_full + " кВт");
+                    CostEnergy.setText(CostEnergy.getText() + "\n\n" + pogreb.price_kWt + " руб");
                     DateHange.setText(pogreb.date_hange);
                     Pressure.setText(Pressure.getText() + "\n\n" + pogreb.pressure);
                     TempHome.setText(TempHome.getText() + "\n\n" + pogreb.home_temp + " °C");
@@ -295,8 +297,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 pogreb = DataService.GetPorgrebokData(jsonString);
 
-                ConsumptionEnergy.setText(getResources().getString(R.string.EnergyConsumption) + "\n\n" + pogreb.kwt_full);
-                CostEnergy.setText(getResources().getString(R.string.PriceEnergy) + "\n\n" + pogreb.price_kWt);
+                ConsumptionEnergy.setText(getResources().getString(R.string.EnergyConsumption) + "\n\n" + pogreb.kwt_full + " кВт");
+                CostEnergy.setText(getResources().getString(R.string.PriceEnergy) + "\n\n" + pogreb.price_kWt + " руб");
                 DateHange.setText(pogreb.date_hange);
                 Pressure.setText(getResources().getString(R.string.Pressure) + "\n\n" + pogreb.pressure);
                 TempHome.setText(getResources().getString(R.string.TempHome) + "\n\n" + pogreb.home_temp + " °C");
