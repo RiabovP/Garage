@@ -15,12 +15,15 @@ import net.oauth.OAuthConsumer;
 import net.oauth.OAuthException;
 import net.oauth.OAuthMessage;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +36,7 @@ public class WeatherRequest<T> extends JsonRequest<T> {
     private Object IOException;
     private Object URISyntaxException;
 
-    public WeatherRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener, WeatherV1 datas) {
+    public WeatherRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
     }
 
@@ -70,9 +73,8 @@ public class WeatherRequest<T> extends JsonRequest<T> {
 
     @Override
     public String getUrl() {
-        return baseUrl + "?woeid=2122541&format=json&u=c";
+        return baseUrl + "?woeid=2122541&u=c&format=json";
     }
-
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
@@ -98,20 +100,50 @@ public class WeatherRequest<T> extends JsonRequest<T> {
     // Работа с данными из сети, парсинг строки Json
     private T parseResponse(String jsonString) throws IOException, JSONException {
 
-        WeatherV1 weatherV1 = new WeatherV1();
+        ForecastDays forecast_days = new ForecastDays();
 
 
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONObject contents = jsonObject.getJSONObject("current_observation");
 
-        JSONObject contents2=contents.getJSONObject("condition");
-        weatherV1.Temperature= contents2.getString("temperature");
+        JSONObject contents2=contents.getJSONObject("wind");
+        forecast_days.Wind=contents2.getString("speed");
 
-        //JSONArray arrayContents = jsonObject.getJSONArray("forecasts");
+        contents2=contents.getJSONObject("atmosphere");
+        forecast_days.Humidity=contents2.getString("humidity");
+        forecast_days.Visibility=contents2.getString("visibility");
+        forecast_days.Pressure=contents2.getString("pressure");
+
+        contents2=contents.getJSONObject("astronomy");
+        forecast_days.Sunrise=contents2.getString("sunrise");
+        forecast_days.Sunset=contents2.getString("sunset");
+
+        contents2=contents.getJSONObject("condition");
+        forecast_days.Temperature= contents2.getString("temperature");
+
+        JSONArray arrayContents = jsonObject.getJSONArray("forecasts");
+
+        Date date;
+        //Long longdate;
+
+        for (int i=0; i<arrayContents.length(); i++)
+        {
+            JSONObject contents3 = arrayContents.getJSONObject(i);
+            //longdate = Long.parseLong(contents3.getString("date"));
+            date= new Date(Long.parseLong(contents3.getString("date"))*1000);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+            forecast_days.date[i]=sdf.format(date);
+            forecast_days.day[i]=contents3.getString("day");
+            forecast_days.tempHigh[i]=contents3.getString("high");
+            forecast_days.tempLow[i]=contents3.getString("low");
+
+        }
 
 
 
-    return (T) weatherV1; // Add response parsing here
+
+    return (T) forecast_days; // Add response parsing here
     }
 }
