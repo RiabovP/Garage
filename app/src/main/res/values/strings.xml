@@ -15,4 +15,8 @@
     <string name="gradus">°C</string>
     <string name="TempMax">Max, t</string>
     <string name="TempMin">Min, t</string>
+    <string name="Title_calendar">Данные с Календаря</string>
+    <string name="Date_calendar">Дата:</string>
+    <string name="Max_temp_calendar">Максимальная температура =</string>
+    <string name="Min_temp_calendar">Минимальная температура =</string>
 </resources>

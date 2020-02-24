@@ -53,9 +53,21 @@ public class DataService {
         data.street_temp_max_byDate=contents.getString("Tmax");
         data.street_temp_min_byDate=contents.getString("Tmin");
 
+        return data;
+    }
 
+    public static PogrebokV1 GetPorgrebokData_temp_calendar (String jsonString) throws IOException, JSONException {
 
+        JSONObject jsonObject = new JSONObject(jsonString);
+
+        JSONObject contents = jsonObject.getJSONObject("contents");
+
+        PogrebokV1 data = new PogrebokV1();
+
+        data.street_temp_max_byDateCal = contents.getString("Tmax");
+        data.street_temp_min_byDateCal = contents.getString("Tmin");
 
         return data;
     }
+
 }

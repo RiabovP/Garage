@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#888888"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Datecal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/Title_calendar"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/DatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="@string/Date_calendar"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/MaxTempDateCal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/tile_separator"
+        android:gravity="center_horizontal"
+        android:text="@string/Max_temp_calendar"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/MinTempDateCal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tile_separator"
+        android:gravity="center_horizontal"
+        android:text="@string/Min_temp_calendar"
+        android:textSize="20sp" />
+
+</LinearLayout>

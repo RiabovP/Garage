@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class WeatherRequest<T> extends JsonRequest<T> {
@@ -113,8 +114,9 @@ public class WeatherRequest<T> extends JsonRequest<T> {
         contents2=contents.getJSONObject("atmosphere");
         forecast_days.Humidity=contents2.getString("humidity");
         forecast_days.Visibility=contents2.getString("visibility");
-        forecast_days.Pressure=contents2.getString("pressure");
+        //forecast_days.Pressure=contents2.getString("pressure");
 
+        forecast_days.Pressure=String.format(Locale.US,"%.1f",(float)(Float.parseFloat(contents2.getString("pressure"))*0.750064));
         contents2=contents.getJSONObject("astronomy");
         forecast_days.Sunrise=contents2.getString("sunrise");
         forecast_days.Sunset=contents2.getString("sunset");

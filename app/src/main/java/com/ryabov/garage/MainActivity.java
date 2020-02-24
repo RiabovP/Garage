@@ -1,11 +1,15 @@
 package com.ryabov.garage;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,10 +31,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String jsonString, jsonString1;
+    String jsonString, jsonString1, data_set;
+
+    private static long BackPressed;
 
     TextView DateHange;
 
@@ -46,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button TimeWarm;
     Button On_Off;
     Button Refresh;
+    Button Report;
 
     PogrebokV1 pogreb;
 
@@ -68,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimeWarm=findViewById(R.id.TimeWarm);
         On_Off=findViewById(R.id.butsOnOff);
         Refresh=findViewById(R.id.Refresh);
+        Report = findViewById(R.id.countTurnOn);
 
         new progress_Task().execute("http://37.193.0.199:1010/home2.txt", "New");
 
@@ -75,9 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TempMax.setOnClickListener(this);
         TempMin.setOnClickListener(this);
         ForecastTemp.setOnClickListener(this);
-
+        Report.setOnClickListener(this);
     }
 
+    // Запрос к Апи-погоды
     @Override
     public void onStart()
     {
@@ -98,6 +108,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         requestManager.addToRequestQueue(request);
+    }
+
+    //Выход по двойному нажатию на Back из приложения
+    @Override
+    public void onBackPressed() {
+
+        if (BackPressed + 2000 > System.currentTimeMillis())
+        {
+            super.onBackPressed();
+        }
+
+        Toast.makeText(this,"Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show();
+        BackPressed=System.currentTimeMillis();
+
     }
 
     @Override
@@ -133,8 +157,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 overridePendingTransition(R.anim.trans, R.anim.alpha);
                 break;
+            case R.id.countTurnOn:
+                showDialog(1);
+
+                break;
+
         }
     }
+
+    //Создание диалого календаря
+    protected Dialog onCreateDialog (int id){
+        if(id==1){
+            Calendar currentDate= Calendar.getInstance();
+            DatePickerDialog dialogCal = new DatePickerDialog(this, myCallBack, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
+            dialogCal.getDatePicker().setMaxDate(System.currentTimeMillis()); //Установка максимальной даты в диалоге
+
+            return dialogCal;
+
+        }
+        return super.onCreateDialog(id);
+}
+
+    //Вызов диалого календаря
+    DatePickerDialog.OnDateSetListener myCallBack = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+            data_set = year + "." + (month + 1) + "." + dayOfMonth;
+
+            Intent intent1 = new Intent(MainActivity.this, CalendarActivity.class);
+            intent1.putExtra("dateCalendar", data_set);
+            startActivity(intent1);
+
+        }
+};
+
 
     // Первичная загрузка данных при запуске приложения (на потом, попытаться условиями разрулить обновление и первый запуск)
     public class progress_Task extends AsyncTask <String, Void, String> {
@@ -279,10 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setTitle("Ошибка");
                         builder.setMessage(errMessage);
-                        //builder.setNeutralButton("Ok",null);
-                        //builder.setNeutralButton("График за месяц", null);
                         builder.setPositiveButton("Ok", null);
-                        //builder.setNegativeButton("Cancel", null);
                         builder.show();
                     }
                 });
