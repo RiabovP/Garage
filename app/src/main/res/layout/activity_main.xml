@@ -202,7 +202,7 @@
             android:layout_height="match_parent"
             android:layout_column="1"
             android:gravity="center_horizontal"
-            android:text="ff"
+            android:text="Дата"
             android:textAlignment="center"
             android:textColor="#ffffff" />
     </LinearLayout>

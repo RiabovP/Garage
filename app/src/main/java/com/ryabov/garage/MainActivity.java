@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onCreateDialog(id);
 }
 
-    //Вызов диалого календаря
+    //Вызов диалога календаря
     DatePickerDialog.OnDateSetListener myCallBack = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -209,22 +209,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected String doInBackground(String... string){
             final String errmessage;
             try{
-                jsonString=getContent(string[0]);
-                test=string[1];
-            } catch (IOException ex){
-                errmessage = ex.getMessage();
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("Ошибка");
-                        builder.setMessage(errmessage);
-                        //builder.setNeutralButton("Ok",null);
-                        //builder.setNeutralButton("График за месяц", null);
-                        builder.setPositiveButton("Ok", null);
-                        //builder.setNegativeButton("Cancel", null);
-                        builder.show();
-                    }
+                        jsonString=getContent(string[0]);
+                        test=string[1];
+                    } catch (IOException ex){
+                        errmessage = ex.getMessage();
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Ошибка");
+                                builder.setMessage(errmessage);
+                                //builder.setNeutralButton("Ok",null);
+                                //builder.setNeutralButton("График за месяц", null);
+                                builder.setPositiveButton("Ok", null);
+                                //builder.setNegativeButton("Cancel", null);
+                                builder.show();
+                            }
                 });
             }
             return jsonString;
