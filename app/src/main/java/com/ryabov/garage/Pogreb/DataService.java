@@ -1,5 +1,6 @@
 package com.ryabov.garage.Pogreb;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.lang.Float;
@@ -52,6 +53,31 @@ public class DataService {
 
         data.street_temp_max_byDate=contents.getString("Tmax");
         data.street_temp_min_byDate=contents.getString("Tmin");
+
+        return data;
+    }
+
+    public static Pogreb_graph GetPogrebData_Graph_temp(String jsonString) throws IOException, JSONException{
+
+        JSONObject jsonObject = new JSONObject(jsonString);
+
+        //JSONObject contents = jsonObject.getJSONObject("contents");
+
+        Pogreb_graph data = new Pogreb_graph(Integer.parseInt(jsonObject.getString("count")), jsonString);
+
+        data.Request_json=jsonObject.getString("count");
+
+
+
+        JSONArray jsonArray=jsonObject.getJSONArray("contents");
+
+        for (int i=0; i<jsonArray.length(); i++)
+        {
+            JSONObject contents3 = jsonArray.getJSONObject(i);
+
+            data.temp_streetByDate[i]=contents3.getString("temp_street");
+            data.date_temp[i]=contents3.getString("Date");
+        }
 
         return data;
     }

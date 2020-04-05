@@ -2,6 +2,7 @@ package com.ryabov.garage;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ryabov.garage.Pogreb.DataService;
+import com.ryabov.garage.Pogreb.Pogreb_graph;
 import com.ryabov.garage.Pogreb.PogrebokV1;
 import com.ryabov.garage.Weather.ForecastDays;
 import com.ryabov.garage.Weather.RequestManager;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button Report;
 
     PogrebokV1 pogreb;
+
+    Pogreb_graph pogreb_graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,10 +255,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("Максимальная температура");
                     builder.setMessage("Максимальная температура на улице за месяц " + pogreb.street_temp_max_byDate + " °C");
-                    //builder.setNeutralButton("Ok",null);
-                    builder.setNeutralButton("График за месяц", null);
+                    builder.setNeutralButton("График за месяц", myClickList);
                     builder.setPositiveButton("Ok", null);
-                    //builder.setNegativeButton("Cancel", null);
                     builder.show();
 
                 } else if (test=="Min"){
@@ -263,10 +265,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("Минимальная температура");
                     builder.setMessage("Минимальная температура на улице за месяц " + pogreb.street_temp_min_byDate + " °C");
-                    //builder.setNeutralButton("Ok",null);
                     builder.setNeutralButton("График за месяц", null);
                     builder.setPositiveButton("Ok", null);
-                    //builder.setNegativeButton("Cancel", null);
                     builder.show();
                 }
 
@@ -275,26 +275,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Ошибка");
                 builder.setMessage(e.getMessage());
-                //builder.setNeutralButton("Ok",null);
-                //builder.setNeutralButton("График за месяц", null);
                 builder.setPositiveButton("Ok", null);
-                //builder.setNegativeButton("Cancel", null);
                 builder.show();
                 }catch(JSONException e){
                     e.printStackTrace();
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Ошибка");
                 builder.setMessage(e.getMessage());
-                //builder.setNeutralButton("Ok",null);
-                //builder.setNeutralButton("График за месяц", null);
                 builder.setPositiveButton("Ok", null);
-                //builder.setNegativeButton("Cancel", null);
                 builder.show();
                 }
 
             }
-
-        }
 
         private String getContent(String path) throws IOException {
 
@@ -319,7 +311,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-    // Обновление данных погребка / гаража(рефреш)
+        DialogInterface.OnClickListener myClickList=new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent1 = new Intent(MainActivity.this, tempGraph.class);
+                //intent1.putExtra("dateCalendar", data_set);
+                startActivity(intent1);
+
+            }
+        };
+
+    }
+
+
+
+            // Обновление данных погребка / гаража(рефреш)
 
     public class refresh_data extends AsyncTask<String, Void, String> {
 
