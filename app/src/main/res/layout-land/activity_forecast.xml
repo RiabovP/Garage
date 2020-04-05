@@ -22,7 +22,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:text="Прогноз погоды в Новосибирске"
-                android:textSize="17sp"/>
+                android:textSize="27sp"
+                android:fontFamily="@font/proxima"/>
 
                 <TableLayout
                     android:id="@+id/tableWeather"
