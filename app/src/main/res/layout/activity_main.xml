@@ -74,7 +74,8 @@
                         android:layout_marginBottom="25dp"
                         android:background="@drawable/tile_separator"
                         android:text="@string/TempMax"
-                        android:textColor="#ffffff" />
+                        android:textColor="#ffffff"
+                        android:onClick="showDialog"/>
 
                     <Button
                         android:id="@+id/TempMin"

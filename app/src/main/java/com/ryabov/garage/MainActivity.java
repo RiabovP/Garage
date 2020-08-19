@@ -2,7 +2,6 @@ package com.ryabov.garage;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +33,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
+
+//import android.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -163,9 +164,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.countTurnOn:
                 showDialog(1);
+                break;
+            case R.id.button2:
+
+                Intent intent1 = new Intent(MainActivity.this, tempGraph.class);
+                //intent1.putExtra("dateCalendar", data_set);
+                startActivity(intent1);
 
                 break;
-
         }
     }
 
@@ -200,9 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Первичная загрузка данных при запуске приложения (на потом, попытаться условиями разрулить обновление и первый запуск)
     public class progress_Task extends AsyncTask <String, Void, String> {
-
-       // AlertDialog.Builder builder;
-
         String test;
 
         @Override
@@ -219,10 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                 builder.setTitle("Ошибка");
                                 builder.setMessage(errmessage);
-                                //builder.setNeutralButton("Ok",null);
-                                //builder.setNeutralButton("График за месяц", null);
                                 builder.setPositiveButton("Ok", null);
-                                //builder.setNegativeButton("Cancel", null);
                                 builder.show();
                             }
                 });
@@ -251,23 +251,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         On_Off.setBackgroundResource(R.drawable.power_on);
                 } else if (test=="Max"){
                     pogreb = DataService.GetPorgrebokData_temp(jsonString);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Максимальная температура");
-                    builder.setMessage("Максимальная температура на улице за месяц " + pogreb.street_temp_max_byDate + " °C");
-                    builder.setNeutralButton("График за месяц", myClickList);
-                    builder.setPositiveButton("Ok", null);
-                    builder.show();
-
+                    CustomDialogFragment dialog = CustomDialogFragment.newInstance(pogreb.street_temp_max_byDate, "Максимальная температура ");
+                    dialog.show(getSupportFragmentManager(),"Custom");
                 } else if (test=="Min"){
                     pogreb = DataService.GetPorgrebokData_temp(jsonString);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Минимальная температура");
-                    builder.setMessage("Минимальная температура на улице за месяц " + pogreb.street_temp_min_byDate + " °C");
-                    builder.setNeutralButton("График за месяц", null);
-                    builder.setPositiveButton("Ok", null);
-                    builder.show();
+                    CustomDialogFragment dialog = CustomDialogFragment.newInstance(pogreb.street_temp_max_byDate, "Минимальная температура ");
+                    dialog.show(getSupportFragmentManager(),"Custom");
+
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                    builder.setTitle("Минимальная температура");
+//                    builder.setMessage("Минимальная температура на улице за месяц " + pogreb.street_temp_min_byDate + " °C");
+//                    builder.setNeutralButton("За месяц", myClickAlert);
+//                    //builder.setNegativeButton("За неделю", null);
+//                    builder.setPositiveButton("За 24 часа", myClickList);
+//                    //builder.setView(R.layout.dialog_popup);
+//                    builder.show();
                 }
 
             }catch(IOException e){
@@ -287,6 +286,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             }
+
+
 
         private String getContent(String path) throws IOException {
 
@@ -310,17 +311,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bufferedReader.close();
             }
         }
-
-        DialogInterface.OnClickListener myClickList=new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                Intent intent1 = new Intent(MainActivity.this, tempGraph.class);
-                //intent1.putExtra("dateCalendar", data_set);
-                startActivity(intent1);
-
-            }
-        };
 
     }
 
