@@ -75,7 +75,8 @@
                         android:background="@drawable/tile_separator"
                         android:text="@string/TempMax"
                         android:textColor="#ffffff"
-                        android:onClick="showDialog"/>
+                        android:onClick="showDialog"
+                        tools:ignore="OnClick" />
 
                     <Button
                         android:id="@+id/TempMin"
@@ -185,7 +186,7 @@
                         android:layout_column="1"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="20dp"
-                        android:background="@drawable/power_off" />
+                        android:background="@drawable/power_off_1"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>
