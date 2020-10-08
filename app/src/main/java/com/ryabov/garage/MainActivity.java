@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     String jsonString, jsonString1, data_set;
 
+    int backPress=0;
+
     private static long BackPressed;
 
     TextView DateHange;
@@ -119,13 +121,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
 
+
+
         if (BackPressed + 2000 > System.currentTimeMillis())
         {
             super.onBackPressed();
         }
 
-        Toast.makeText(this,"Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show();
-        BackPressed=System.currentTimeMillis();
+        if (backPress==0 || BackPressed + 2100 < System.currentTimeMillis()){
+            Toast.makeText(this,"Нажмите еще раз для выхода", Toast.LENGTH_SHORT).show();
+            BackPressed=System.currentTimeMillis();
+            backPress++;
+        }
+
+
 
     }
 
