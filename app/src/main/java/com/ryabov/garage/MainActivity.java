@@ -236,19 +236,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             try {
                 if (test == "New") {
+
                     pogreb = DataService.GetPorgrebokData(jsonString);
                     ConsumptionEnergy.setText(ConsumptionEnergy.getText() + "\n\n" + pogreb.kwt_full + " кВт");
                     CostEnergy.setText(CostEnergy.getText() + "\n\n" + pogreb.price_kWt + " руб");
                     DateHange.setText(pogreb.date_hange);
                     Pressure.setText(Pressure.getText() + "\n\n" + pogreb.pressure);
                     TempHome.setText(TempHome.getText() + "\n\n" + pogreb.home_temp + " °C");
+
                     TempMax.setText(TempMax.getText() + "\n\n" + pogreb.street_temp_max + " °C");
                     TempMin.setText(TempMin.getText() + "\n\n" + pogreb.street_temp_min + " °C");
                     TempPogrebok.setText(TempPogrebok.getText() + "\n\n" + pogreb.cellar_temp + " °C");
                     TempStreet.setText(TempStreet.getText() + "\n\n" + pogreb.street_temp_current + " °C");
                     TimeWarm.setText(TimeWarm.getText() + "\n\n" + pogreb.time_power);
-                    if (pogreb.heating == "1")
-                        On_Off.setBackgroundResource(R.drawable.power_on);
+                    if ("1".equals(pogreb.heating))
+                      On_Off.setBackgroundResource(R.drawable.power_on);
+                    else if ("0".equals(pogreb.heating))
+                        On_Off.setBackgroundResource(R.drawable.power_off_1);
                 } else if (test=="Max"){
                     pogreb = DataService.GetPorgrebokData_temp(jsonString);
                     CustomDialogFragment dialog = CustomDialogFragment.newInstance(pogreb.street_temp_max_byDate, "Максимальная температура ");
@@ -359,8 +363,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TempPogrebok.setText(getResources().getString(R.string.TempPogrebok) + "\n\n" + pogreb.cellar_temp + " °C");
                 TempStreet.setText(getResources().getString(R.string.TempStreet) + "\n\n" + pogreb.street_temp_current + " °C");
                 TimeWarm.setText(getResources().getString(R.string.AmountHours) +"\n\n" + pogreb.time_power);
-                if(pogreb.heating == "1")
+                On_Off.setBackgroundResource(R.drawable.power_on);
+                //pogreb.heating="0";
+                if("1".equals(pogreb.heating)) {
                     On_Off.setBackgroundResource(R.drawable.power_on);
+                }else if ("0".equals(pogreb.heating))
+                    On_Off.setBackgroundResource(R.drawable.power_off_1);
 
             }catch (IOException ex) {
                 ex.printStackTrace();
