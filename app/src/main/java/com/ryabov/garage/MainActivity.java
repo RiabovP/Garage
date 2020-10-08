@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
 
-
-
         if (BackPressed + 2000 > System.currentTimeMillis())
         {
             super.onBackPressed();
@@ -133,9 +131,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             BackPressed=System.currentTimeMillis();
             backPress++;
         }
-
-
-
     }
 
     @Override
