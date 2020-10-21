@@ -35,7 +35,7 @@ public class CustomDialogFragment extends DialogFragment{
         //View view = inflater.inflate(R.layout.dialog_popup, null);
 
         AlertDialog.Builder bld = new AlertDialog.Builder(getActivity());
-        return bld.setTitle(titleDiag + temp_data + " °C")
+        return bld.setTitle(titleDiag + temp_data + "°C")
                 .setSingleChoiceItems(choiseArray, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
