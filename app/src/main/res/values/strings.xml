@@ -19,4 +19,7 @@
     <string name="Date_calendar">Дата:</string>
     <string name="Max_temp_calendar">Максимальная температура =</string>
     <string name="Min_temp_calendar">Минимальная температура =</string>
+    <string name="Sign_screen">Авторизируйтесь</string>
+    <string name="Email_pass">Garage1</string>
+    <string name="Password_pass">12345</string>
 </resources>

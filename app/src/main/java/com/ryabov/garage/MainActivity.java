@@ -138,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.Refresh:
-                new refresh_data().execute("http://37.193.0.199:1010/home2.txt");
+                //new refresh_data().execute("http://37.193.0.199:1010/home2.txt");
+                new progress_Task().execute("http://37.193.0.199:1010/home2.txt", "Refresh_data");
                 break;
             case R.id.TempMax:
                 new progress_Task().execute("http://37.193.0.199:1010/Tmax_Tmin.php?Tmax_Tmin", "Max");
@@ -275,6 +276,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    builder.setPositiveButton("За 24 часа", myClickList);
 //                    //builder.setView(R.layout.dialog_popup);
 //                    builder.show();
+                } else if (test=="Refresh_data"){
+                    pogreb = DataService.GetPorgrebokData(jsonString);
+
+                    ConsumptionEnergy.setText(getResources().getString(R.string.EnergyConsumption) + "\n\n" + pogreb.kwt_full + " кВт");
+                    CostEnergy.setText(getResources().getString(R.string.PriceEnergy) + "\n\n" + pogreb.price_kWt + " руб");
+                    DateHange.setText(pogreb.date_hange);
+                    Pressure.setText(getResources().getString(R.string.Pressure) + "\n\n" + pogreb.pressure);
+                    TempHome.setText(getResources().getString(R.string.TempHome) + "\n\n" + pogreb.home_temp + " °C");
+                    TempMax.setText(getResources().getString(R.string.TempMax) + "\n\n" + pogreb.street_temp_max + " °C");
+                    TempMin.setText(getResources().getString(R.string.TempMin) + "\n\n" + pogreb.street_temp_min + " °C");
+                    TempPogrebok.setText(getResources().getString(R.string.TempPogrebok) + "\n\n" + pogreb.cellar_temp + " °C");
+                    TempStreet.setText(getResources().getString(R.string.TempStreet) + "\n\n" + pogreb.street_temp_current + " °C");
+                    TimeWarm.setText(getResources().getString(R.string.AmountHours) +"\n\n" + pogreb.time_power);
+                    On_Off.setBackgroundResource(R.drawable.power_on);
+                    //pogreb.heating="0";
+                    if("1".equals(pogreb.heating)) {
+                        On_Off.setBackgroundResource(R.drawable.power_on);
+                    }else if ("0".equals(pogreb.heating))
+                        On_Off.setBackgroundResource(R.drawable.power_off_1);
                 }
 
             }catch(IOException e){
@@ -326,84 +346,84 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // Обновление данных погребка / гаража(рефреш)
 
-    public class refresh_data extends AsyncTask<String, Void, String> {
-
-    @Override
-        protected String doInBackground(String... string) {
-
-        final String errMessage;
-            try {
-                jsonString = getContent(string[0]);
-            } catch (IOException ex) {
-                errMessage = ex.getMessage();
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("Ошибка");
-                        builder.setMessage(errMessage);
-                        builder.setPositiveButton("Ok", null);
-                        builder.show();
-                    }
-                });
-            }
-            return jsonString;
-        }
-
-        @Override
-        protected void onPostExecute (String content) {
-            super.onPostExecute(content);
-
-            try {
-                pogreb = DataService.GetPorgrebokData(jsonString);
-
-                ConsumptionEnergy.setText(getResources().getString(R.string.EnergyConsumption) + "\n\n" + pogreb.kwt_full + " кВт");
-                CostEnergy.setText(getResources().getString(R.string.PriceEnergy) + "\n\n" + pogreb.price_kWt + " руб");
-                DateHange.setText(pogreb.date_hange);
-                Pressure.setText(getResources().getString(R.string.Pressure) + "\n\n" + pogreb.pressure);
-                TempHome.setText(getResources().getString(R.string.TempHome) + "\n\n" + pogreb.home_temp + " °C");
-                TempMax.setText(getResources().getString(R.string.TempMax) + "\n\n" + pogreb.street_temp_max + " °C");
-                TempMin.setText(getResources().getString(R.string.TempMin) + "\n\n" + pogreb.street_temp_min + " °C");
-                TempPogrebok.setText(getResources().getString(R.string.TempPogrebok) + "\n\n" + pogreb.cellar_temp + " °C");
-                TempStreet.setText(getResources().getString(R.string.TempStreet) + "\n\n" + pogreb.street_temp_current + " °C");
-                TimeWarm.setText(getResources().getString(R.string.AmountHours) +"\n\n" + pogreb.time_power);
-                On_Off.setBackgroundResource(R.drawable.power_on);
-                //pogreb.heating="0";
-                if("1".equals(pogreb.heating)) {
-                    On_Off.setBackgroundResource(R.drawable.power_on);
-                }else if ("0".equals(pogreb.heating))
-                    On_Off.setBackgroundResource(R.drawable.power_off_1);
-
-            }catch (IOException ex) {
-                ex.printStackTrace();
-            }catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        private String getContent(String path) throws IOException {
-
-            BufferedReader bufferedReader=null;
-
-            try {
-                URL url = new URL(path);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                bufferedReader = new BufferedReader(inputStreamReader);
-                String line = bufferedReader.readLine();
-
-                return line;
-            }
-            finally {
-                if (bufferedReader !=null)
-                    bufferedReader.close();
-            }
-        }
-    }
+//    public class refresh_data extends AsyncTask<String, Void, String> {
+//
+//    @Override
+//        protected String doInBackground(String... string) {
+//
+//        final String errMessage;
+//            try {
+//                jsonString = getContent(string[0]);
+//            } catch (IOException ex) {
+//                errMessage = ex.getMessage();
+//                MainActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                        builder.setTitle("Ошибка");
+//                        builder.setMessage(errMessage);
+//                        builder.setPositiveButton("Ok", null);
+//                        builder.show();
+//                    }
+//                });
+//            }
+//            return jsonString;
+//        }
+//
+//        @Override
+//        protected void onPostExecute (String content) {
+//            super.onPostExecute(content);
+//
+//            try {
+//                pogreb = DataService.GetPorgrebokData(jsonString);
+//
+//                ConsumptionEnergy.setText(getResources().getString(R.string.EnergyConsumption) + "\n\n" + pogreb.kwt_full + " кВт");
+//                CostEnergy.setText(getResources().getString(R.string.PriceEnergy) + "\n\n" + pogreb.price_kWt + " руб");
+//                DateHange.setText(pogreb.date_hange);
+//                Pressure.setText(getResources().getString(R.string.Pressure) + "\n\n" + pogreb.pressure);
+//                TempHome.setText(getResources().getString(R.string.TempHome) + "\n\n" + pogreb.home_temp + " °C");
+//                TempMax.setText(getResources().getString(R.string.TempMax) + "\n\n" + pogreb.street_temp_max + " °C");
+//                TempMin.setText(getResources().getString(R.string.TempMin) + "\n\n" + pogreb.street_temp_min + " °C");
+//                TempPogrebok.setText(getResources().getString(R.string.TempPogrebok) + "\n\n" + pogreb.cellar_temp + " °C");
+//                TempStreet.setText(getResources().getString(R.string.TempStreet) + "\n\n" + pogreb.street_temp_current + " °C");
+//                TimeWarm.setText(getResources().getString(R.string.AmountHours) +"\n\n" + pogreb.time_power);
+//                On_Off.setBackgroundResource(R.drawable.power_on);
+//                //pogreb.heating="0";
+//                if("1".equals(pogreb.heating)) {
+//                    On_Off.setBackgroundResource(R.drawable.power_on);
+//                }else if ("0".equals(pogreb.heating))
+//                    On_Off.setBackgroundResource(R.drawable.power_off_1);
+//
+//            }catch (IOException ex) {
+//                ex.printStackTrace();
+//            }catch (JSONException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//
+//        private String getContent(String path) throws IOException {
+//
+//            BufferedReader bufferedReader=null;
+//
+//            try {
+//                URL url = new URL(path);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                urlConnection.setRequestMethod("GET");
+//                urlConnection.connect();
+//
+//                InputStream inputStream = urlConnection.getInputStream();
+//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+//                bufferedReader = new BufferedReader(inputStreamReader);
+//                String line = bufferedReader.readLine();
+//
+//                return line;
+//            }
+//            finally {
+//                if (bufferedReader !=null)
+//                    bufferedReader.close();
+//            }
+//        }
+//    }
 
 }
 
