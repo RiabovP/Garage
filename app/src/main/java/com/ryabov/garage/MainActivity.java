@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TempMin.setOnClickListener(this);
         ForecastTemp.setOnClickListener(this);
         Report.setOnClickListener(this);
+        CostEnergy.setOnClickListener(this);
     }
 
     // Запрос к Апи-погоды
@@ -171,11 +172,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showDialog(1);
                 break;
             case R.id.button2:
-
                 Intent intent1 = new Intent(MainActivity.this, tempGraph.class);
                 //intent1.putExtra("dateCalendar", data_set);
                 startActivity(intent1);
-
+                break;
+            case R.id.PriceEE:
+                Intent intent2 = new Intent(this, hello_chart.class);
+                startActivity(intent2);
                 break;
         }
     }

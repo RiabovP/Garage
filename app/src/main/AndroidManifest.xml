@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".hello_chart" />
         <activity android:name=".SignInPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +24,7 @@
         <activity android:name=".CalendarActivity" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
-        </activity>
+            android:theme="@style/SplashTheme" />
         <activity android:name=".ForecastActivity" />
 
         <uses-library
