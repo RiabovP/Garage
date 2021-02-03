@@ -32,7 +32,6 @@ import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.SelectedValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
@@ -50,7 +49,7 @@ public class hello_chart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello_chart);
 
-        new progress_Task3().execute("http://37.193.0.199:1010/temp_street.php?temp_street&date=2020.02.10");
+        new progress_Task3().execute("http://37.193.0.199:1010/temp_street.php?temp_street&date=2020.02.10", "initial", "");
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
@@ -80,7 +79,7 @@ public class hello_chart extends AppCompatActivity {
             chartTop = (LineChartView) rootView.findViewById(R.id.chart_top);
 
             // Generate and set data for line chart
-            generateInitialLineData();
+            generateInitialLineData(72);
 
             // *** BOTTOM COLUMN CHART ***
 
@@ -126,17 +125,17 @@ public class hello_chart extends AppCompatActivity {
 
             chartBottom.setZoomType(ZoomType.HORIZONTAL);
 
-             chartBottom.setOnClickListener(new View.OnClickListener() {
-
-             @Override
-             public void onClick(View v) {
-             SelectedValue sv = chartBottom.getSelectedValue();
-             if (!sv.isSet()) {
-             generateInitialLineData();
-             }
-
-             }
-             });
+//             chartBottom.setOnClickListener(new View.OnClickListener() {
+//
+//             @Override
+//             public void onClick(View v) {
+//             SelectedValue sv = chartBottom.getSelectedValue();
+//             if (!sv.isSet()) {
+//             generateInitialLineData(72);
+//             }
+//
+//             }
+//             });
 
         }
 
@@ -144,8 +143,8 @@ public class hello_chart extends AppCompatActivity {
          * Generates initial data for line chart. At the begining all Y values are equals 0. That will change when user
          * will select value on column chart.
          */
-        private void generateInitialLineData() {
-            int numValues = 72;
+        private static void generateInitialLineData(int p_lines) {
+            int numValues = p_lines;
             int sr= 0;
 
 
@@ -173,36 +172,37 @@ public class hello_chart extends AppCompatActivity {
             chartTop.setViewportCalculationEnabled(false);
 
             // And set initial max viewport and current viewport- remember to set viewports after data.
-            Viewport v = new Viewport(0, 10, 73, -20);
+            Viewport v = new Viewport(0, 10, 73, -30);
             chartTop.setMaximumViewport(v);
             chartTop.setCurrentViewport(v);
 
             chartTop.setZoomType(ZoomType.HORIZONTAL);
         }
 
-        private void generateLineData(int color, float range) {
+        private static void generateLineData(int color, float reset) {
             // Cancel last animation if not finished.
-            chartTop.cancelDataAnimation();
+            //chartTop.cancelDataAnimation();
 //---
-            Line line = lineData.getLines().get(0);// For this example there is always only one line.
-            line.setColor(color);
-            for (PointValue value : line.getValues()) {
+            if (reset == 1){
+                chartTop.cancelDataAnimation();
+                Line line = lineData.getLines().get(0);// For this example there is always only one line.
+                line.setColor(color);
+                for (PointValue value : line.getValues()) {
                 // Change target only for Y value.
-                //String dateStr=pogreb.date_temp[(int) value.getX()];
-                value.setTarget(value.getX(), (float) Double.parseDouble(pogreb.temp_streetByDate[(int)value.getX()]));
+                    value.setTarget(value.getX(), (float) Double.parseDouble(pogreb.temp_streetByDate[(int)value.getX()]));
+                }
+                chartTop.startDataAnimation(500);
+            } else if (reset == 0) {
+                    Line line = lineData.getLines().get(0);// For this example there is always only one line.
+                    line.setColor(color);
+                    for (PointValue value : line.getValues()) {
+                        value.setTarget(value.getX(), (float) Math.random() * reset);
+                    }
+                chartTop.startDataAnimation(500);
             }
 
-            //-----
-            // Modify data targets
-//            Line line = lineData.getLines().get(0);// For this example there is always only one line.
-//            line.setColor(color);
-//            for (PointValue value : line.getValues()) {
-//                // Change target only for Y value.
-//                value.setTarget(value.getX(), (float) Math.random() * range);
-//            }
-
             // Start new data animation with 300ms duration;
-            chartTop.startDataAnimation(500);
+            //chartTop.startDataAnimation(800);
         }
 
         private class ValueTouchListener implements ColumnChartOnValueSelectListener {
@@ -210,9 +210,10 @@ public class hello_chart extends AppCompatActivity {
             @Override
             public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
 
-                //new progress_Task3().execute("http://37.193.0.199:1010/temp_street.php?temp_street&date=2020.02.1"+String.valueOf(columnIndex));
-                int p=Integer.parseInt(pogreb.Request_json);
-                generateLineData(value.getColor(), p);
+                int ps=value.getColor();
+                new progress_Task3().execute("http://37.193.0.199:1010/temp_street.php?temp_street&date=2020.02.1"+String.valueOf(columnIndex), "select", Integer.toString(ps));
+
+                //generateLineData(value.getColor());
 
 
             }
@@ -220,7 +221,7 @@ public class hello_chart extends AppCompatActivity {
             @Override
             public void onValueDeselected() {
 
-                generateLineData(ChartUtils.COLOR_GREEN, 0);
+                generateLineData(ChartUtils.COLOR_GREEN,0);
 
             }
         }
@@ -230,7 +231,8 @@ public class hello_chart extends AppCompatActivity {
 
     public static class progress_Task3 extends AsyncTask<String, Void, String> {
 
-
+        String inits;
+        String color;
 
         @Override
         protected String doInBackground(String... string) {
@@ -238,6 +240,8 @@ public class hello_chart extends AppCompatActivity {
             final String errMessage;
             try {
                 jsonString = getContent(string[0]);
+                inits=string[1];
+                color=string[2];
             } catch (IOException ex) {
                 errMessage = ex.getMessage();
             }
@@ -250,12 +254,15 @@ public class hello_chart extends AppCompatActivity {
             super.onPostExecute(content);
 
             try {
-                pogreb = DataService.GetPogrebData_Graph_temp(jsonString);
-                int p=Integer.parseInt(pogreb.Request_json);
+                if(inits=="select") {
+                    pogreb = DataService.GetPogrebData_Graph_temp(jsonString);
+                    int p = Integer.parseInt(pogreb.Request_json);
+                    PlaceholderFragment.generateInitialLineData(p);
+                    PlaceholderFragment.generateLineData(Integer.parseInt(color),1);
 
 
-                // Cancel last animation if not finished.
-                //chartTop.cancelDataAnimation();
+                    // Cancel last animation if not finished.
+                    //chartTop.cancelDataAnimation();
 
 //            // Modify data targets
 //            Line line = lineData.getLines().get(0);// For this example there is always only one line.
@@ -270,6 +277,9 @@ public class hello_chart extends AppCompatActivity {
 //
 //            // Start new data animation with 300ms duration;
 //            chartTop.startDataAnimation(300);
+                } else if (inits=="initial"){
+
+                }
 
 
 
