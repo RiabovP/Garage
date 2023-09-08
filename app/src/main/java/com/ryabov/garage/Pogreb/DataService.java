@@ -26,8 +26,8 @@ public class DataService {
         data.kwt_full= contents.getString("kwt_full");
         data.pressure=contents.getString("pressure");
         data.street_temp_current=contents.getString("temp_street");
-        data.street_temp_max=contents.getString("temp_street_max");
-        data.street_temp_min=contents.getString("temp_street_min");
+        //data.street_temp_max=contents.getString("temp_street_max");-
+        //data.street_temp_min=contents.getString("temp_street_min");-
         data.time_power=contents.getString("time_power");
         data.price_kWt = contents.getString("kwt_full");
 
@@ -36,7 +36,7 @@ public class DataService {
        // data.price_kWt= Double.toString(priceKwt);
 
         //data.price_kWt=Float.toString((float) (Float.parseFloat(data.price_kWt)*2.68));
-        data.price_kWt=String.format(Locale.US, "%.2f",(float) (Float.parseFloat(data.price_kWt)*2.68));
+        data.price_kWt=String.format(Locale.US, "%.2f",(float) (Float.parseFloat(data.price_kWt)*3.36));
         data.time_power=String.format(Locale.US,"%.2f",(float)(Float.parseFloat(data.time_power)/60));
 
         return data;
